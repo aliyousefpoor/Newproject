@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.Collections;
 import java.util.List;
 
@@ -34,10 +36,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.firstname.setText(list.get(position).firstname);
-        holder.lastname.setText(list.get(position).lastname);
-        holder.email.setText(list.get(position).email);
-        holder.avatar.setImageResource(list.get(position).imageId);
+        holder.firstname.setText(list.get(position).getFirstname());
+        holder.lastname.setText(list.get(position).getLastname());
+        holder.email.setText(list.get(position).getEmail());
+        Glide.with(context).load(list.get(position).getImguRL()).into(holder.avatar);
 
         holder.firstname.setOnClickListener(new View.OnClickListener() {
             @Override
