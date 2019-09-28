@@ -33,7 +33,7 @@ public class UserlistFragment extends Fragment {
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(data, getContext());
         recycleview.setAdapter(adapter);
         recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
-        return recycleview;
+        return view;
 
     }
 
@@ -41,6 +41,11 @@ public class UserlistFragment extends Fragment {
     public List<Data> fill_with_data() {
 
         List<Data> data = new ArrayList<>();
+        data.add(new Data("ali","yousefpoor","asajsd@sd.com",R.drawable.gray));
+        data.add(new Data("mehdi","delavar","asajsd@sd.com",R.drawable.gray));
+        data.add(new Data("alireza","delavar","asajsd@sd.com",R.drawable.gray));
+        data.add(new Data("ali","yousefpoor","asajsd@sd.com",R.drawable.gray));
+        data.add(new Data("ali","yousefpoor","asajsd@sd.com",R.drawable.gray));
         data.add(new Data("ali","yousefpoor","asajsd@sd.com",R.drawable.gray));
 
         return data;

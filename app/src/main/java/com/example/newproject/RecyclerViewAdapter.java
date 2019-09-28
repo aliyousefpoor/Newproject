@@ -1,6 +1,7 @@
 package com.example.newproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,9 +39,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         holder.email.setText(list.get(position).email);
         holder.avatar.setImageResource(list.get(position).imageId);
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.firstname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
 
 
     }
