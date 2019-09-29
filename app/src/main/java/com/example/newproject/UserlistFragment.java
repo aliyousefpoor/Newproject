@@ -33,6 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class UserlistFragment extends Fragment {
@@ -53,21 +54,21 @@ public class UserlistFragment extends Fragment {
         //return view;
         fetchJson();
 
-
+        return view;
     }
 
     private void fetchJson() {
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(RecyclerInterface.JSONURL)
-                .addConverterFactory(ScalarsConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("https://reqres.in/api/")
+                .addConverterFactory(GsonConverterFactory.create()).build();
 
 
         RecyclerInterface api = retrofit.create(RecyclerInterface.class);
-        Call<String> call = api.getString();
+        Call<JsonClass> call = api.getString();
 
-        call.enqueue(new Callback<String>() {
+        call.enqueue(new Callback<JsonClass>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<JsonClass> call, Response<JsonClass> response) {
                 Log.i("ResponseString", response.body().toString());
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
@@ -85,7 +86,8 @@ public class UserlistFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<JsonClass> call, Throwable t) {
+                t.printStackTrace();
 
             }
         });
@@ -96,30 +98,40 @@ public class UserlistFragment extends Fragment {
 
         try {
             JSONObject obj = new JSONObject(response);
-            if (obj.optString("Status").equals("true")) {
-                List<Data> datalist = new List<>();
-                JSONArray dataArray = obj.getJSONArray(dataa);
+            Log.d("object", obj.toString());
 
-                for (int i = 0; i < dataArray.length(); i++) {
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+           /* if (obj.optString("Status").equals("true")) {
+                List<Data> list = new ArrayList<Data>();
+                JSONArray dataList = obj.getJSONArray(data);
+
+                for (int i = 0; i < dataList.length(); i++) {
 
                     Data data = new Data();
-                    JSONObject dataobj = dataArray.getJSONObject(i);
+                    JSONObject dataobj = dataList.getJSONObject(i);
 
                     data.setImguRL(dataobj.getString("imguRL"));
-                    data.setFirstname(dataobj.getString("firstname"));
-                    data.setLastname(dataobj.getString("lastname"));
+                    data.setFirstname(dataobj.getString("first_name"));
+                    data.setLastname(dataobj.getString("last_name"));
                     data.setEmail(dataobj.getString("email"));
 
-                    datalist.add(data);
+                    list.add(data);
                 }
-                RecyclerViewAdapter adapter = new RecyclerViewAdapter(datalist, getContext());
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter(list, getContext());
                 recycleview.setAdapter(adapter);
                 recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
 
 
             } else {
 
-                Toast.makeText(UserlistFragment.this, obj.optString("message") + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), obj.optString("message") + "", Toast.LENGTH_SHORT).show();
 
             }
         } catch (JSONException e) {
@@ -127,10 +139,7 @@ public class UserlistFragment extends Fragment {
         }
     }
 
-}
-
-
-
+}*/
 
 
 //public List<Data> fill_with_data() {
@@ -146,4 +155,4 @@ public class UserlistFragment extends Fragment {
 //  return data;
 
 // }
-//}
+//

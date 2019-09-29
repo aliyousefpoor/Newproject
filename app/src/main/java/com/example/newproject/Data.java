@@ -2,7 +2,7 @@ package com.example.newproject;
 
 public class Data {
 
-    private String firstname, lastname, email, imguRL;
+    private String first_name, last_name, email, imguRL;
 
     public String getImguRL() {
         return imguRL;
@@ -14,19 +14,19 @@ public class Data {
     }
 
     public String getFirstname() {
-        return firstname;
+        return first_name;
     }
 
     public void setFirstname (String firstname){
-        this.firstname = firstname ;
+        this.first_name = firstname ;
     }
 
     public String getLastname(){
-        return lastname;
+        return last_name;
     }
 
-    public void setLastname(String lastname){
-        this.lastname =lastname ;
+    public void setLastname(String last_name){
+        this.last_name =last_name ;
     }
 
     public String getEmail(){
