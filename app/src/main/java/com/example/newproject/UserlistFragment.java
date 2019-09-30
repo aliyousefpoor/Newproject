@@ -40,7 +40,7 @@ public class UserlistFragment extends Fragment {
 
     private RecyclerViewAdapter adapter;
     private RecyclerView recycleview;
-    //  List<Data> data = fill_with_data();
+     List<Data> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,10 +48,7 @@ public class UserlistFragment extends Fragment {
 
 
         RecyclerView recycleview = (RecyclerView) view.findViewById(R.id.rcview);
-        // RecyclerViewAdapter adapter = new RecyclerViewAdapter(data, getContext());
-        //recycleview.setAdapter(adapter);
-        //recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
-        //return view;
+
         fetchJson();
 
         return view;
@@ -69,12 +66,14 @@ public class UserlistFragment extends Fragment {
         call.enqueue(new Callback<JsonClass>() {
             @Override
             public void onResponse(Call<JsonClass> call, Response<JsonClass> response) {
-                Log.i("ResponseString", response.body().toString());
+                Log.d("Response",response.body().toString());
+
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
-                        Log.i("onSucces", response.body().toString());
-                        String jsonresponse = response.body().toString();
-                        writeRecycler(jsonresponse);
+
+                        writeRecycler(response.body());
+
+
 
                     } else {
 
@@ -94,18 +93,30 @@ public class UserlistFragment extends Fragment {
 
     }
 
-    private void writeRecycler(String response) {
+    private void writeRecycler(JsonClass response) {
 
-        try {
-            JSONObject obj = new JSONObject(response);
-            Log.d("object", obj.toString());
+        Log.d("Response Writerecycler ",response.getData().toString());
 
 
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+        List<Datum>  dataList = response.getData();
+
+       /* for (int i = 0; i < dataList.size(); i++) {
+            Datum data = new Datum();
+
+            data.setAvatar(dataList.get(i).getAvatar());
+            data.setFirstName(dataList.get(i).getFirstName());
+            data.setLastName(dataList.get(i).getLastName());
+            data.setEmail(dataList.get(i).getEmail());
+            list.add(data);
+        }*/
+      Log.d("Response before adapter",response.getData().toString());
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(dataList, getContext());
+        recycleview.setAdapter(adapter);
+        recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
         }
-
-    }
 }
 
            /* if (obj.optString("Status").equals("true")) {

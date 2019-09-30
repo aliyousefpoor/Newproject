@@ -15,10 +15,10 @@ import java.util.Collections;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
-    private List<Data> list ;
+    private List<Datum> list ;
     Context context;
 
-    public RecyclerViewAdapter(List<Data> list, Context context) {
+    public RecyclerViewAdapter(List<Datum> list, Context context) {
 
         this.list = list;
         this.context = context;
@@ -36,10 +36,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.first_name.setText(list.get(position).getFirstname());
-        holder.last_name.setText(list.get(position).getLastname());
+        holder.first_name.setText(list.get(position).getFirstName());
+        holder.last_name.setText(list.get(position).getLastName());
         holder.email.setText(list.get(position).getEmail());
-        Glide.with(context).load(list.get(position).getImguRL()).into(holder.avatar);
+        Glide.with(context).load(list.get(position).getAvatar()).into(holder.avatar);
 
         holder.first_name.setOnClickListener(new View.OnClickListener() {
             @Override
