@@ -45,6 +45,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             @Override
             public void onClick(View view) {
 
+                Intent intent =new Intent(context,SecoundActivity.class);
+                context.startActivity(intent);
 
 
 

@@ -47,7 +47,7 @@ public class UserlistFragment extends Fragment {
         View view = inflater.inflate(R.layout.mianfragment, container, false);
 
 
-        RecyclerView recycleview = (RecyclerView) view.findViewById(R.id.rcview);
+        recycleview = view.findViewById(R.id.rcview);
 
         fetchJson();
 
