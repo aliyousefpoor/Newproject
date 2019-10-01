@@ -30,6 +30,10 @@
         <activity android:name=".SecoundActivity">
 
         </activity>
+
+        <activity android:name=".SharedPrefrence">
+
+        </activity>
     </application>
 
 </manifest>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Newproject</string>
+    <string name="sharedprefrence">
+
+        هدف از ساخت این اپلیکیشن یادگیری است.
+
+    </string>
+
+
 </resources>
