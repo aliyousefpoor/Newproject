@@ -35,10 +35,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     public void onBindViewHolder(ViewHolder holder, int position) {
 
+
+
+
         holder.first_name.setText(list.get(position).getFirstName());
         holder.last_name.setText(list.get(position).getLastName());
         holder.email.setText(list.get(position).getEmail());
-        Glide.with(context).load(list.get(position).getAvatar()).into(holder.avatar);
+
+       Glide.with(context).load(list.get(position).getAvatar()).into(holder.avatar);
+
 
         holder.cv.setOnClickListener(new View.OnClickListener() {
 
