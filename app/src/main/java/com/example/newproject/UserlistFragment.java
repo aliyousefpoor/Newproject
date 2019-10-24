@@ -1,14 +1,17 @@
 package com.example.newproject;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -28,6 +31,7 @@ public class UserlistFragment extends Fragment {
     private RecyclerView recycleview;
     private SwipeRefreshLayout swipeRefreshLayout;
     private TextView pullDown;
+    private ImageView imageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class UserlistFragment extends Fragment {
         recycleview = view.findViewById(R.id.rcview);
         pullDown = view.findViewById(R.id.pulldown);
         swipeRefreshLayout =view.findViewById(R.id.swiprefreshing);
+        imageView = view.findViewById(R.id.imgarrow);
 
         pullDown.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +64,10 @@ public class UserlistFragment extends Fragment {
 
     private void fetchJson() {
 
+        pullDown.setVisibility(View.GONE);
+        imageView.setVisibility(View.GONE);
+        swipeRefreshLayout.setRefreshing(true);
+
         Retrofit retrofit = new Retrofit.Builder().baseUrl("https://reqres.in/api/")
                 .addConverterFactory(GsonConverterFactory.create()).build();
 
@@ -72,6 +81,7 @@ public class UserlistFragment extends Fragment {
 
                 pullDown.setVisibility(View.GONE);
                 swipeRefreshLayout.setRefreshing(false);
+                recycleview.setVisibility(View.VISIBLE);
                 Log.d("Response", response.body().toString());
 
                 if (response.isSuccessful()) {
@@ -93,8 +103,10 @@ public class UserlistFragment extends Fragment {
             public void onFailure(Call<JsonClass> call, Throwable t) {
 
                 pullDown.setVisibility(View.VISIBLE);
+                imageView.setVisibility(View.VISIBLE);
                 swipeRefreshLayout.setRefreshing(false);
-                Toast.makeText(getContext(), "Error :( ", Toast.LENGTH_LONG).show();
+                recycleview.setVisibility(View.GONE);
+                Toast.makeText(getContext(), "Checking your Connection ", Toast.LENGTH_LONG).show();
 
                 t.printStackTrace();
 
@@ -113,9 +125,10 @@ public class UserlistFragment extends Fragment {
 
 
         Log.d("Response before adapter", response.getData().toString());
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(dataList, getContext());
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(dataList, getContext(),getFragmentManager());
         recycleview.setAdapter(adapter);
         recycleview.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
 
     }
