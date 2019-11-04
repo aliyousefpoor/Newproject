@@ -62,4 +62,7 @@ public class Datum {
         this.avatar = avatar;
     }
 
+
+
+
 }
